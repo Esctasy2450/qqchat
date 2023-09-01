@@ -25,12 +25,10 @@ public abstract class Handle {
 
     /**
      * 执行下一责任节点
-     *
-     * @param node 当前节点
      */
-    public void goNext(String code, String metadata, String node) {
+    public void goNext(String code, String metadata) {
         if (null == this.getNext()) {
-            log.info("责任链已经到但是最后仍然没有可执行的逻辑，node：{}， code：{}，metadata：{}", node, code, metadata);
+            log.info("责任链已经到但是最后仍然没有可执行的逻辑，node：{}， code：{}，metadata：{}", this.getClass().getName(), code, metadata);
             return;
         }
 

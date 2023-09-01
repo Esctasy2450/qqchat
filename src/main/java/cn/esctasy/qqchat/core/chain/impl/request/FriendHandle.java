@@ -16,7 +16,7 @@ public class FriendHandle extends Handle {
     @Override
     public void handling(String code, String metadata) {
         if (!"friend".equals(code)) {
-            this.goNext(code, metadata, "FriendHandle");
+            this.goNext(code, metadata);
             return;
         }
 

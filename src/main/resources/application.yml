@@ -15,3 +15,5 @@ esctasy:
   qqchat:
     ws:
       socket-path: ${SOCKET_PATH:ws://localhost:5700}
+    qingyun:
+      api: http://api.qingyunke.com/api.php

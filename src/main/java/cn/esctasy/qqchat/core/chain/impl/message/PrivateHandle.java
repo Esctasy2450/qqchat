@@ -1,5 +1,7 @@
 package cn.esctasy.qqchat.core.chain.impl.message;
 
+import cn.esctasy.qqchat.common.third.QingYunConfig;
+import cn.esctasy.qqchat.common.utils.SpringContextHolder;
 import cn.esctasy.qqchat.common.ws.WsExample;
 import cn.esctasy.qqchat.core.bean.reply.Reply;
 import cn.esctasy.qqchat.core.chain.Handle;
@@ -24,20 +26,30 @@ public class PrivateHandle extends Handle {
     @Override
     public void handling(String code, String metadata) {
         if (!"private".equals(code)) {
-            this.goNext(code, metadata, this.getClass().getName());
+            this.goNext(code, metadata);
             return;
         }
 
         PrivateEs privateEs = JSON.parseObject(metadata, PrivateEs.class);
-        String res = sendGet("http://api.qingyunke.com/api.php?key=free&appid=0&msg=" + privateEs.getRaw_message());
-        QingYun q = JSON.parseObject(res, QingYun.class);
+
+        String message = getQingYunMsg(privateEs);
 
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", privateEs.getUser_id());
-        param.put("message", q.getContent());
+        param.put("message", message);
         param.put("auto_escape", true);
         WsExample.getWs().send(Reply.build("send_private_msg", param, "test"));
     }
+
+    /**
+     * 青云客api调用
+     */
+    private static String getQingYunMsg(PrivateEs privateEs) {
+        String res = sendGet(SpringContextHolder.getBean(QingYunConfig.class).getApi() + "?key=free&appid=0&msg=" + privateEs.getRaw_message());
+        QingYun q = JSON.parseObject(res, QingYun.class);
+        return q.getContent();
+    }
+
 
     @Data
     private static class QingYun {

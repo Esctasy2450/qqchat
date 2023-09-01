@@ -14,7 +14,7 @@ public class RequestHandle extends Handle {
     @Override
     public void handling(String code, String metadata) {
         if (!"request".equals(code)) {
-            this.goNext(code, metadata, "RequestHandle");
+            this.goNext(code, metadata);
             return;
         }
 

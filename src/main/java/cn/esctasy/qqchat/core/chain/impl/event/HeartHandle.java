@@ -12,10 +12,10 @@ public class HeartHandle extends Handle {
     @Override
     public void handling(String code, String metadata) {
         if (!"heartbeat".equals(code)) {
-            this.goNext(code, metadata, "HeartHandle");
+            this.goNext(code, metadata);
             return;
         }
 
-        log.info("heart beat success");
+//        log.info("heart beat success");
     }
 }

@@ -20,7 +20,7 @@ public class EventHandle extends Handle {
     @Override
     public void handling(String code, String metadata) {
         if (!"meta_event".equals(code)) {
-            this.goNext(code, metadata, "EventHandle");
+            this.goNext(code, metadata);
             return;
         }
 

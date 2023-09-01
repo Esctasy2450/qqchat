@@ -12,7 +12,7 @@ public class LifeCycle extends Handle {
     @Override
     public void handling(String code, String metadata) {
         if (!"lifecycle".equals(code)) {
-            this.goNext(code, metadata, "LifeCycle");
+            this.goNext(code, metadata);
             return;
         }
 
