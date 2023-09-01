@@ -1,18 +1,21 @@
 package cn.esctasy.qqchat.core.chain;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * 责任链
  */
 @Slf4j
-@Data
 public abstract class Handle {
 
     /**
      * 责任链下一个指向
      */
+    @Getter
+    @Setter
     private Handle next;
 
     /**
