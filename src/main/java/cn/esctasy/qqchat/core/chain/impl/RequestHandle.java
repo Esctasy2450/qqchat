@@ -2,7 +2,7 @@ package cn.esctasy.qqchat.core.chain.impl;
 
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.chain.impl.request.FriendHandle;
-import cn.esctasy.qqchat.core.bean.request.RequestEs;
+import cn.esctasy.qqchat.core.bean.escalation.request.RequestEs;
 import com.alibaba.fastjson.JSON;
 
 /**
@@ -13,12 +13,12 @@ public class RequestHandle extends Handle {
 
     @Override
     public void handling(String code, String metadata) {
-        if ("request".equals(code)) {
-            RequestEs requestEs = JSON.parseObject(metadata, RequestEs.class);
-            friend.handling(requestEs.getRequest_type(), metadata);
+        if (!"request".equals(code)) {
+            this.goNext(code, metadata, "RequestHandle");
             return;
         }
 
-        this.goNext(code, metadata, "RequestHandle");
+        RequestEs requestEs = JSON.parseObject(metadata, RequestEs.class);
+        friend.handling(requestEs.getRequest_type(), metadata);
     }
 }

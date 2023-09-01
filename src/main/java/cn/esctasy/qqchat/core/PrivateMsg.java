@@ -1,29 +1,30 @@
 package cn.esctasy.qqchat.core;
 
+import cn.esctasy.qqchat.common.ws.WsExample;
 import cn.esctasy.qqchat.config.WebSocketConfig;
+import cn.esctasy.qqchat.core.bean.reply.Reply;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/private")
 public class PrivateMsg {
-    @Autowired
-    WebSocketConfig config;
 
     @GetMapping("/send")
     public void send() {
-        config.getWs().send("{\n" +
-                "    \"action\": \"send_private_msg\",\n" +
-                "    \"params\": {\n" +
-                "        \"user_id\": 321516532,\n" +
-                "        \"message\": \"test\",\n" +
-                "        \"auto_escape\": true\n" +
-                "    },\n" +
-                "    \"echo\": \"'回声', 如果指定了 echo 字段, 那么响应包也会同时包含一个 echo 字段, 它们会有相同的值\"\n" +
-                "}");
+        Map<String, Object> param = new HashMap<>();
+        param.put("user_id", 321516532);
+        param.put("message", "321516532");
+        param.put("auto_escape", true);
+        WsExample.getWs().send(Reply.build("send_private_msg", param, "test"));
     }
 }

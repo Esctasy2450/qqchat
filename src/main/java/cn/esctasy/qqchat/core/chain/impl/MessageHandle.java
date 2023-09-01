@@ -2,7 +2,7 @@ package cn.esctasy.qqchat.core.chain.impl;
 
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.chain.impl.message.PrivateHandle;
-import cn.esctasy.qqchat.core.bean.message.MessageEs;
+import cn.esctasy.qqchat.core.bean.escalation.message.MessageEs;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,12 +15,12 @@ public class MessageHandle extends Handle {
 
     @Override
     public void handling(String code, String metadata) {
-        if ("message".equals(code)) {
-            MessageEs messageEs = JSON.parseObject(metadata, MessageEs.class);
-            privateHd.handling(messageEs.getMessage_type(), metadata);
+        if (!"message".equals(code)) {
+            this.goNext(code, metadata, "MessageHandle");
             return;
         }
 
-        this.goNext(code, metadata, "MessageHandle");
+        MessageEs messageEs = JSON.parseObject(metadata, MessageEs.class);
+        privateHd.handling(messageEs.getMessage_type(), metadata);
     }
 }

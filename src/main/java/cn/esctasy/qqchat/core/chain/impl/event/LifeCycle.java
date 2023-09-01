@@ -11,11 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 public class LifeCycle extends Handle {
     @Override
     public void handling(String code, String metadata) {
-        if ("lifecycle".equals(code)) {
-            log.info("lifecycle");
+        if (!"lifecycle".equals(code)) {
+            this.goNext(code, metadata, "LifeCycle");
             return;
         }
 
-        this.goNext(code, metadata, "LifeCycle");
+        log.info("lifecycle");
     }
 }

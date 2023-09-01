@@ -10,3 +10,8 @@ spring:
     allow-circular-references: true
   profiles:
     active: dev
+
+esctasy:
+  qqchat:
+    ws:
+      socket-path: ${SOCKET_PATH:ws://localhost:5700}

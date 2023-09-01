@@ -11,11 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 public class HeartHandle extends Handle {
     @Override
     public void handling(String code, String metadata) {
-        if ("heartbeat".equals(code)) {
-            log.info("heart beat success");
+        if (!"heartbeat".equals(code)) {
+            this.goNext(code, metadata, "HeartHandle");
             return;
         }
 
-        this.goNext(code, metadata, "HeartHandle");
+        log.info("heart beat success");
     }
 }

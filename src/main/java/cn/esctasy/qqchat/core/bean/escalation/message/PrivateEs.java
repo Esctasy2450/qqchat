@@ -1,4 +1,4 @@
-package cn.esctasy.qqchat.core.bean.message;
+package cn.esctasy.qqchat.core.bean.escalation.message;
 
 import lombok.Data;
 

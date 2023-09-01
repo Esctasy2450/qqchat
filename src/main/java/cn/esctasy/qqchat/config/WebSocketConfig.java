@@ -1,11 +1,14 @@
 package cn.esctasy.qqchat.config;
 
+import cn.esctasy.qqchat.common.ws.WsConfig;
+import cn.esctasy.qqchat.common.ws.WsExample;
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.chain.impl.EventHandle;
 import cn.esctasy.qqchat.core.chain.impl.MessageHandle;
 import cn.esctasy.qqchat.core.chain.impl.RequestHandle;
-import cn.esctasy.qqchat.core.bean.Escalation;
+import cn.esctasy.qqchat.core.bean.escalation.Escalation;
 import com.alibaba.fastjson.JSON;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
@@ -17,27 +20,23 @@ import java.net.URI;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class WebSocketConfig {
+    private final WsConfig wsConfig;
 
-    private WebSocketClient ws;
-
-    public WebSocketClient getWs() {
-        return ws;
-    }
-
-    Handle event = new EventHandle();
-    Handle message = new MessageHandle();
-    Handle request = new RequestHandle();
+    /**
+     * 责任链实例
+     */
+    Handle handle;
 
     {
-        event.setNext(message);
-        message.setNext(request);
+        this.initChain();
     }
 
     @Bean
-    public WebSocketClient webSocketClient() {
+    public void webSocketClient() {
         try {
-            WebSocketClient webSocketClient = new WebSocketClient(new URI("ws://localhost:5700"), new Draft_6455()) {
+            WebSocketClient webSocketClient = new WebSocketClient(new URI(wsConfig.getSocketPath()), new Draft_6455()) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     System.out.println("ws 连接成功");
@@ -50,7 +49,7 @@ public class WebSocketConfig {
                     }
 
                     Escalation escalation = JSON.parseObject(message, Escalation.class);
-                    event.handling(escalation.getPost_type(), message);
+                    handle.handling(escalation.getPost_type(), message);
                 }
 
                 @Override
@@ -63,12 +62,28 @@ public class WebSocketConfig {
                     System.out.println("连接错误" + ex.getMessage());
                 }
             };
+
             webSocketClient.connect();
-            this.ws = webSocketClient;
-            return webSocketClient;
+
+            WsExample.setWs(webSocketClient);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+    }
+
+    /**
+     * 初始化责任链
+     */
+    private void initChain() {
+        //事件调用
+        handle = new EventHandle();
+
+        //增加消息调用
+        Handle message = new MessageHandle();
+        handle.setNext(message);
+
+        //增加上报请求调用
+        Handle request = new RequestHandle();
+        message.setNext(request);
     }
 }

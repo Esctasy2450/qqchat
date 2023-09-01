@@ -1,6 +1,6 @@
-package cn.esctasy.qqchat.core.bean.event;
+package cn.esctasy.qqchat.core.bean.escalation.event;
 
-import cn.esctasy.qqchat.core.bean.Escalation;
+import cn.esctasy.qqchat.core.bean.escalation.Escalation;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
