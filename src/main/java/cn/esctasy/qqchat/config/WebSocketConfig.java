@@ -7,6 +7,7 @@ import cn.esctasy.qqchat.core.chain.impl.EventHandle;
 import cn.esctasy.qqchat.core.chain.impl.MessageHandle;
 import cn.esctasy.qqchat.core.chain.impl.RequestHandle;
 import cn.esctasy.qqchat.core.bean.escalation.Escalation;
+import cn.esctasy.qqchat.core.response.ResponseOperate;
 import com.alibaba.fastjson.JSON;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.net.URI;
 
@@ -49,6 +51,13 @@ public class WebSocketConfig {
                     }
 
                     Escalation escalation = JSON.parseObject(message, Escalation.class);
+                    if (StringUtils.hasText(escalation.getEcho())) {
+                        //响应数据直接处理
+                        ResponseOperate.handleResponse(message);
+                        return;
+                    }
+
+                    //上报数据走责任链
                     handle.handling(escalation.getPost_type(), message);
                 }
 
