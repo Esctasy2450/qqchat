@@ -1,11 +1,13 @@
 package cn.esctasy.qqchat.core.bean.reply;
 
+import cn.esctasy.qqchat.common.utils.SpringContextHolder;
 import cn.esctasy.qqchat.common.utils.UuidUtils;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.java_websocket.client.WebSocketClient;
 
 import java.util.Map;
 
@@ -37,12 +39,16 @@ public class Reply {
      * 组装数据，返回json
      * json是socket请求时使用的数据格式
      */
-    public static String build(String action, Map<String, Object> params, String echo) {
-        return JSON.toJSONString(new Reply(action, params, echo));
+    public static Reply build(String action, Map<String, Object> params, String echo) {
+        return new Reply(action, params, echo);
     }
 
-    public static String build(String action, Map<String, Object> params) {
+    public static Reply build(String action, Map<String, Object> params) {
         //echo自动生成
-        return JSON.toJSONString(new Reply(action, params, UuidUtils.id()));
+        return new Reply(action, params, UuidUtils.id());
+    }
+
+    public void send() {
+        SpringContextHolder.getBean(WebSocketClient.class).send(JSON.toJSONString(this));
     }
 }

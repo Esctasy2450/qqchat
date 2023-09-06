@@ -1,10 +1,9 @@
-package cn.esctasy.qqchat.config;
+package cn.esctasy.qqchat.ws;
 
-import cn.esctasy.qqchat.common.ws.WsConfig;
-import cn.esctasy.qqchat.common.ws.WsExample;
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.chain.impl.EventHandle;
 import cn.esctasy.qqchat.core.chain.impl.MessageHandle;
+import cn.esctasy.qqchat.core.chain.impl.NoticeHandle;
 import cn.esctasy.qqchat.core.chain.impl.RequestHandle;
 import cn.esctasy.qqchat.core.bean.escalation.Escalation;
 import cn.esctasy.qqchat.core.response.ResponseOperate;
@@ -14,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -24,7 +24,9 @@ import java.net.URI;
 @Slf4j
 @RequiredArgsConstructor
 public class WebSocketConfig {
-    private final WsConfig wsConfig;
+
+    @Value("${esctasy.qqchat.ws.socket-path}")
+    public String socketPath;
 
     /**
      * 责任链实例
@@ -36,9 +38,9 @@ public class WebSocketConfig {
     }
 
     @Bean
-    public void webSocketClient() {
+    public WebSocketClient webSocketClient() {
         try {
-            WebSocketClient webSocketClient = new WebSocketClient(new URI(wsConfig.getSocketPath()), new Draft_6455()) {
+            WebSocketClient webSocketClient = new WebSocketClient(new URI(socketPath), new Draft_6455()) {
                 @Override
                 public void onOpen(ServerHandshake handshakedata) {
                     System.out.println("ws 连接成功");
@@ -74,9 +76,10 @@ public class WebSocketConfig {
 
             webSocketClient.connect();
 
-            WsExample.setWs(webSocketClient);
+            return webSocketClient;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -94,5 +97,9 @@ public class WebSocketConfig {
         //增加上报请求调用
         Handle request = new RequestHandle();
         message.setNext(request);
+
+        //增加通知调用
+        Handle notice = new NoticeHandle();
+        request.setNext(notice);
     }
 }

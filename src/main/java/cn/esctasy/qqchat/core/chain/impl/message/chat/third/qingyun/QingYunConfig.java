@@ -1,8 +1,6 @@
-package cn.esctasy.qqchat.common.third;
+package cn.esctasy.qqchat.core.chain.impl.message.chat.third.qingyun;
 
 import cn.esctasy.qqchat.common.utils.HttpUtil;
-import cn.esctasy.qqchat.common.utils.SpringContextHolder;
-import cn.esctasy.qqchat.core.bean.escalation.message.PrivateEs;
 import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = QingYunConfig.prefix)
 public class QingYunConfig {
-    public static final String prefix = "esctasy.qqchat.qingyun";
+    public static final String prefix = "esctasy.qqchat.third-chat.qingyun";
 
     /**
      * 地址

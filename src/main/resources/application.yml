@@ -2,8 +2,6 @@ server:
   port: 5701
 logging:
   file-location: logs
-  level:
-    cn.esctasy: debug
 
 spring:
   main:
@@ -15,5 +13,9 @@ esctasy:
   qqchat:
     ws:
       socket-path: ${SOCKET_PATH:ws://localhost:5700}
-    qingyun:
-      api: http://api.qingyunke.com/api.php
+    third-chat:
+      model: xx
+      qingyun:
+        api: xxx
+      bard:
+        token: xxxs

@@ -1,6 +1,5 @@
 package cn.esctasy.qqchat.core.chain.impl.request;
 
-import cn.esctasy.qqchat.common.ws.WsExample;
 import cn.esctasy.qqchat.core.bean.reply.Reply;
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.bean.escalation.request.FriendEs;
@@ -25,6 +24,6 @@ public class FriendHandle extends Handle {
         Map<String, Object> param = new HashMap<>();
         param.put("flag", friendEs.getFlag());
         param.put("approve", true);
-        WsExample.getWs().send(Reply.build("set_friend_add_request", param, "test1"));
+        Reply.build("set_friend_add_request", param, "test1").send();
     }
 }

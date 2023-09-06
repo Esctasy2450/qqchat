@@ -14,7 +14,7 @@
     <name>qqchat</name>
     <description>qqchat</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -58,6 +58,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.pkslow</groupId>
+            <artifactId>google-bard</artifactId>
+            <version>0.3.5</version>
         </dependency>
     </dependencies>
 
