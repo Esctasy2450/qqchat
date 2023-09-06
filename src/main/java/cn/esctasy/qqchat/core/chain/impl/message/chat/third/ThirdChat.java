@@ -15,7 +15,7 @@ public class ThirdChat {
     private final QingYunConfig qingYunConfig;
     private final GoogleBardClient client;
 
-    @Value(("${esctasy.qqchat.third-chat.model}"))
+    @Value("${esctasy.qqchat.third-chat.model}")
     public String inUse;
 
     public String getMsg(String msg) {
