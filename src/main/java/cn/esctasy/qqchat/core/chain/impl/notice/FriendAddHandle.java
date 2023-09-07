@@ -1,10 +1,22 @@
 package cn.esctasy.qqchat.core.chain.impl.notice;
 
 import cn.esctasy.qqchat.core.chain.Handle;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 提醒
+ * 加好友
+ * */
 @Slf4j
 public class FriendAddHandle extends Handle {
+
+
+    public FriendAddHandle(Handle next, Handle child) {
+        super(next, child);
+    }
+
     @Override
     public void handling(String code, String metadata) {
         if (!"friend_add".equals(code)) {

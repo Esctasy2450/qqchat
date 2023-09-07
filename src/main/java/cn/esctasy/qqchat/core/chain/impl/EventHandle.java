@@ -5,17 +5,21 @@ import cn.esctasy.qqchat.core.chain.impl.event.HeartHandle;
 import cn.esctasy.qqchat.core.chain.impl.event.LifeCycle;
 import cn.esctasy.qqchat.core.bean.escalation.event.EventEs;
 import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * 事件责任链
  */
 public class EventHandle extends Handle {
-    Handle heart = new HeartHandle();
-    Handle lifeCycle = new LifeCycle();
+    private final Handle heart = new HeartHandle(new LifeCycle(null, null), null);
+    private final Handle lifeCycle = new LifeCycle(null, null);
 
     {
         heart.setNext(lifeCycle);
     }
+
+
 
     @Override
     public void handling(String code, String metadata) {

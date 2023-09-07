@@ -44,20 +44,16 @@ public class WebSocketConfig extends WebSocketClient {
      * 初始化责任链
      */
     private void initChain() {
-        //事件调用
-        handle = new EventHandle();
 
-        //增加消息调用
-        Handle message = new MessageHandle();
-        handle.setNext(message);
-
-        //增加上报请求调用
-        Handle request = new RequestHandle();
-        message.setNext(request);
-
-        //增加通知调用
-        Handle notice = new NoticeHandle();
-        request.setNext(notice);
+        handle =
+                //事件调用
+                new EventHandle(
+                //增加消息调用
+                new MessageHandle(
+                //增加上报请求调用
+                new RequestHandle(
+                //增加通知调用
+                new NoticeHandle(null))));
     }
 
     @Override
@@ -70,18 +66,18 @@ public class WebSocketConfig extends WebSocketClient {
     @Override
     public void onMessage(String message) {
         if (log.isDebugEnabled()) {
-            log.debug("ws 收到消息: {}", message);
+            log.debug("ws 收到消息: {}", message.trim());
         }
 
         Escalation escalation = JSON.parseObject(message, Escalation.class);
         if (StringUtils.hasText(escalation.getEcho())) {
             //响应数据直接处理
-            ResponseOperate.handleResponse(message);
+            ResponseOperate.handleResponse(message.trim());
             return;
         }
 
         //上报数据走责任链
-        handle.handling(escalation.getPost_type(), message);
+        handle.handling(escalation.getPost_type(), message.trim());
     }
 
     @Override
@@ -108,12 +104,12 @@ public class WebSocketConfig extends WebSocketClient {
     private synchronized void isConnectOpen(WebSocketClient client) {
         wsConfig.getRetry().add();
         if (!wsConfig.getRetry().isEnable()) {
-            log.info("未启用重试，断开连接");
+            log.warn("未启用重试，连接已断开");
             return;
         }
 
         if (wsConfig.getRetry().getMax() < wsConfig.getRetry().getRetry()) {
-            log.info("重试次数过多，断开连接");
+            log.warn("重试次数过多，连接已断开");
             return;
         }
 

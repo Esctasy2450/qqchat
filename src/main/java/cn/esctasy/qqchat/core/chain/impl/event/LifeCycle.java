@@ -9,6 +9,10 @@ import lombok.extern.slf4j.Slf4j;
  * */
 @Slf4j
 public class LifeCycle extends Handle {
+    public LifeCycle(Handle next, Handle child) {
+        super(next, child);
+    }
+
     @Override
     public void handling(String code, String metadata) {
         if (!"lifecycle".equals(code)) {

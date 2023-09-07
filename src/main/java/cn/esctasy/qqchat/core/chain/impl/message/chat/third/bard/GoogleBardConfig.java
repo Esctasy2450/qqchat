@@ -7,15 +7,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GoogleBardConfig {
-    GoogleBardClient client;
 
     @Bean
     public GoogleBardClient googleBardClient(@Value("${esctasy.qqchat.third-chat.bard.token}") String token) {
-        this.client = new GoogleBardClient(token);
-        return this.client;
+        return new GoogleBardClient(token);
     }
 
     public String getMsg(String msg) {
-        return client.ask(msg).getChosenAnswer();
+        return "";
     }
 }

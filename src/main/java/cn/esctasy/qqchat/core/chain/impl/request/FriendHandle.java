@@ -4,6 +4,8 @@ import cn.esctasy.qqchat.core.bean.reply.Reply;
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.bean.escalation.request.FriendEs;
 import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -11,6 +13,11 @@ import java.util.Map;
 
 @Slf4j
 public class FriendHandle extends Handle {
+
+
+    public FriendHandle(Handle next, Handle child) {
+        super(next, child);
+    }
 
     @Override
     public void handling(String code, String metadata) {

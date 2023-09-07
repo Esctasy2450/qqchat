@@ -1,14 +1,20 @@
 package cn.esctasy.qqchat.core;
 
+import cn.esctasy.qqchat.common.utils.UuidUtils;
 import cn.esctasy.qqchat.core.bean.reply.Reply;
+import com.github.artbits.quickio.api.Collection;
+import com.github.artbits.quickio.api.DB;
+import com.github.artbits.quickio.core.IOEntity;
+import com.github.artbits.quickio.core.QuickIO;
 import com.pkslow.ai.GoogleBardClient;
 import com.pkslow.ai.domain.Answer;
 import lombok.RequiredArgsConstructor;
-import org.java_websocket.client.WebSocketClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 @RestController
 @CrossOrigin
@@ -17,15 +23,10 @@ import java.util.Map;
 public class PrivateMsg {
 
     private final GoogleBardClient client;
-    private final WebSocketClient webSocketClient;
 
     @GetMapping("/send")
-    public void send() {
-        Map<String, Object> param = new HashMap<>();
-        param.put("user_id", 321516532);
-        param.put("message", "321516532");
-        param.put("auto_escape", true);
-        Reply.build("send_private_msg", param, "test").send();
+    public void send(@RequestBody Map<String, Object> param, @RequestParam String action) {
+        Reply.build(action, param).send();
     }
 
     @GetMapping("/ask")
@@ -36,5 +37,34 @@ public class PrivateMsg {
         return answer.getChosenAnswer();
 //        throw new RuntimeException("Can't access to Google Bard");
 
+    }
+
+    @GetMapping("/testDb")
+    public void gget() {
+        try (DB db = QuickIO.usingDB("example_db")) {
+            Collection<Book> collection = db.collection(Book.class);
+            Book book = Book.of(b -> {
+                b.name = UuidUtils.id();
+                b.author = "Bruce Eckel";
+                b.price = 129.8;
+            });
+
+            collection.save(book);
+            System.out.println(book.objectId());
+            List<Book> books = collection.findAll();
+            books.forEach(IOEntity::printJson);
+        }
+    }
+
+    public static class Book extends IOEntity {
+        public String name;
+        public String author;
+        public Double price;
+
+        public static Book of(Consumer<Book> consumer) {
+            Book book = new Book();
+            consumer.accept(book);
+            return book;
+        }
     }
 }

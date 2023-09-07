@@ -11,11 +11,12 @@ import java.io.IOException;
 
 public class HttpUtil {
     private static final CloseableHttpClient httpclient = HttpClients.createDefault();
+
     /**
      * 发送HttpGet请求
      *
-     * @param url
-     * @return
+     * @param url 地址
+     * @return 请求到的str
      */
     public static String sendGet(String url) {
         HttpGet httpget = new HttpGet(url);

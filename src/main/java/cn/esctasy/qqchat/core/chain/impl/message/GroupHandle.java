@@ -10,7 +10,17 @@ import org.java_websocket.client.WebSocketClient;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 消息
+ * 群聊
+ * */
 public class GroupHandle extends Handle {
+
+
+    public GroupHandle(Handle next, Handle child) {
+        super(next, child);
+    }
+
     @Override
     public void handling(String code, String metadata) {
         if (!"group".equals(code)) {
