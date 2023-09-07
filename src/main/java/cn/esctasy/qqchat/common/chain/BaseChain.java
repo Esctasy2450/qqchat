@@ -45,8 +45,7 @@ public class BaseChain implements ChainInterface {
     }
 
     private static Handle message() {
-        return new MessageHandle()
-                .setChild(messageChild());
+        return new MessageHandle().setChild(messageChild());
     }
 
     private static Handle messageChild() {
