@@ -1,5 +1,6 @@
 package cn.esctasy.qqchat.ws;
 
+import cn.esctasy.qqchat.common.chain.BaseChain;
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.chain.impl.EventHandle;
 import cn.esctasy.qqchat.core.chain.impl.MessageHandle;
@@ -28,7 +29,7 @@ public class WebSocketConfig extends WebSocketClient {
     /**
      * 责任链实例
      */
-    private Handle handle;
+    private final Handle handle = new BaseChain().initChain();
 
     public WebSocketConfig(WsConfig wsConfig) {
         super(URI.create(wsConfig.getSocketPath()), new Draft_6455());
@@ -36,24 +37,6 @@ public class WebSocketConfig extends WebSocketClient {
         this.wsConfig = wsConfig;
         //连接socket
         this.connect();
-        //初始化责任链
-        this.initChain();
-    }
-
-    /**
-     * 初始化责任链
-     */
-    private void initChain() {
-
-        handle =
-                //事件调用
-                new EventHandle(
-                //增加消息调用
-                new MessageHandle(
-                //增加上报请求调用
-                new RequestHandle(
-                //增加通知调用
-                new NoticeHandle(null))));
     }
 
     @Override

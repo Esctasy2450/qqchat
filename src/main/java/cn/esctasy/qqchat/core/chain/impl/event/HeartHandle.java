@@ -9,9 +9,6 @@ import lombok.extern.slf4j.Slf4j;
  * */
 @Slf4j
 public class HeartHandle extends Handle {
-    public HeartHandle(Handle next, Handle child) {
-        super(next, child);
-    }
 
     @Override
     public void handling(String code, String metadata) {
@@ -20,6 +17,6 @@ public class HeartHandle extends Handle {
             return;
         }
 
-//        log.info("heart beat success");
+        log.info("heart beat success");
     }
 }

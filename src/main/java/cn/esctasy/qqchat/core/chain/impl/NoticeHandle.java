@@ -14,17 +14,6 @@ import lombok.NoArgsConstructor;
 
 public class NoticeHandle extends Handle {
 
-    private final Handle friendAdd = new FriendAddHandle();
-
-    {
-        PokeHandle pokeHandle = new PokeHandle();
-        friendAdd.setNext(pokeHandle);
-    }
-
-    public NoticeHandle(Handle next, Handle child) {
-        super(next, child);
-    }
-
     @Override
     public void handling(String code, String metadata) {
         if (!"notice".equals(code)) {
@@ -32,6 +21,6 @@ public class NoticeHandle extends Handle {
             return;
         }
         NoticeEs noticeEs = JSON.parseObject(metadata, NoticeEs.class);
-        friendAdd.handling(noticeEs.getNotice_type(), metadata);
+        this.goChild(noticeEs.getNotice_type(), metadata);
     }
 }

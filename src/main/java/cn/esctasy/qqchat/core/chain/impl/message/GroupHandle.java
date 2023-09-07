@@ -16,11 +16,6 @@ import java.util.Map;
  * */
 public class GroupHandle extends Handle {
 
-
-    public GroupHandle(Handle next, Handle child) {
-        super(next, child);
-    }
-
     @Override
     public void handling(String code, String metadata) {
         if (!"group".equals(code)) {

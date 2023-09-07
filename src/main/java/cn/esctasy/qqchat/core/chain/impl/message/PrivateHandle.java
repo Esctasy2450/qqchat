@@ -20,11 +20,6 @@ import java.util.Map;
  */
 public class PrivateHandle extends Handle {
 
-
-    public PrivateHandle(Handle next, Handle child) {
-        super(next, child);
-    }
-
     @Override
     public void handling(String code, String metadata) {
         if (!"private".equals(code)) {

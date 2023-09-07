@@ -1,4 +1,4 @@
-package cn.esctasy.qqchat.common.utils;
+package cn.esctasy.qqchat.common.chain;
 
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.chain.impl.EventHandle;
@@ -16,18 +16,20 @@ import cn.esctasy.qqchat.core.chain.impl.request.FriendHandle;
 /**
  * 初始化调用链
  */
-public class ChainUtils {
-    public static Handle initChain() {
+public class BaseChain implements ChainInterface {
+    @Override
+    public Handle initChain() {
         //事件调用
-        return new EventHandle()
-                .setNext(new MessageHandle()
-                        .setNext()
-                        .setChild(new PrivateHandle()
-                                .setNext(new GroupHandle())))
-                .setChild(new HeartHandle()
-                        .setNext(new LifeCycle()));
-
-
+        return event().setNext(
+                //消息调用
+                message().setNext(
+                        //上报请求调用
+                        request().setNext(
+                                //系统提示调用
+                                notice()
+                        )
+                )
+        );
     }
 
     private static Handle notice() {
@@ -39,6 +41,23 @@ public class ChainUtils {
     }
 
     private static Handle request() {
-        new RequestHandle().setChild(new FriendHandle())
+        return new RequestHandle().setChild(new FriendHandle());
+    }
+
+    private static Handle message() {
+        return new MessageHandle()
+                .setChild(messageChild());
+    }
+
+    private static Handle messageChild() {
+        return new PrivateHandle().setNext(new GroupHandle());
+    }
+
+    private static Handle event() {
+        return new EventHandle().setNext(eventChild());
+    }
+
+    private static Handle eventChild() {
+        return new HeartHandle().setNext(new LifeCycle());
     }
 }

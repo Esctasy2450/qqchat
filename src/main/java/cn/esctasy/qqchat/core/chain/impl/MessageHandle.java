@@ -13,12 +13,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MessageHandle extends Handle {
-    private final Handle privateHd = ;
-    private final Handle group = ;
-
-    {
-        privateHd.setNext(group);
-    }
 
     @Override
     public void handling(String code, String metadata) {
@@ -28,6 +22,6 @@ public class MessageHandle extends Handle {
         }
 
         MessageEs messageEs = JSON.parseObject(metadata, MessageEs.class);
-        privateHd.handling(messageEs.getMessage_type(), metadata);
+        this.goChild(messageEs.getMessage_type(), metadata);
     }
 }

@@ -16,11 +16,6 @@ import java.util.Map;
  */
 public class PokeHandle extends Handle {
 
-
-    public PokeHandle(Handle next, Handle child) {
-        super(next, child);
-    }
-
     @Override
     public void handling(String code, String metadata) {
         if (!"poke".equals(code)) {

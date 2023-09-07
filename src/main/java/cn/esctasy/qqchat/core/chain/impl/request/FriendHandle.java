@@ -14,11 +14,6 @@ import java.util.Map;
 @Slf4j
 public class FriendHandle extends Handle {
 
-
-    public FriendHandle(Handle next, Handle child) {
-        super(next, child);
-    }
-
     @Override
     public void handling(String code, String metadata) {
         if (!"friend".equals(code)) {

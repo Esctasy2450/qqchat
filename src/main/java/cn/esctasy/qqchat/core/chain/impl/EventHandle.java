@@ -12,15 +12,6 @@ import lombok.NoArgsConstructor;
  * 事件责任链
  */
 public class EventHandle extends Handle {
-    private final Handle heart = new HeartHandle(new LifeCycle(null, null), null);
-    private final Handle lifeCycle = new LifeCycle(null, null);
-
-    {
-        heart.setNext(lifeCycle);
-    }
-
-
-
     @Override
     public void handling(String code, String metadata) {
         if (!"meta_event".equals(code)) {
@@ -29,6 +20,6 @@ public class EventHandle extends Handle {
         }
 
         EventEs eventEs = JSON.parseObject(metadata, EventEs.class);
-        heart.handling(eventEs.getMeta_event_type(), metadata);
+        this.goChild(eventEs.getMeta_event_type(), metadata);
     }
 }

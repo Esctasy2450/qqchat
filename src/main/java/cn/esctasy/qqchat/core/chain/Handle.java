@@ -43,4 +43,13 @@ public abstract class Handle {
 
         this.getNext().handling(code, metadata);
     }
+
+    public void goChild(String code, String metadata) {
+        if (null == this.getChild()) {
+            log.info("当前责任链节点并没有子节点可以调用，node：{}， code：{}，metadata：{}", this.getClass().getName(), code, metadata);
+            return;
+        }
+
+        this.getChild().handling(code, metadata);
+    }
 }

@@ -12,11 +12,6 @@ import lombok.RequiredArgsConstructor;
  * 请求上报事件
  */
 public class RequestHandle extends Handle {
-    private final Handle friend = new FriendHandle();
-
-    public RequestHandle(Handle next, Handle child) {
-        super(next, child);
-    }
 
     @Override
     public void handling(String code, String metadata) {
@@ -26,6 +21,6 @@ public class RequestHandle extends Handle {
         }
 
         RequestEs requestEs = JSON.parseObject(metadata, RequestEs.class);
-        friend.handling(requestEs.getRequest_type(), metadata);
+        this.goChild(requestEs.getRequest_type(), metadata);
     }
 }
