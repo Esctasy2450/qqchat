@@ -53,7 +53,7 @@ public class BaseChain implements ChainInterface {
     }
 
     private static Handle event() {
-        return new EventHandle().setNext(eventChild());
+        return new EventHandle().setChild(eventChild());
     }
 
     private static Handle eventChild() {
