@@ -1,12 +1,8 @@
 package cn.esctasy.qqchat.core.chain.impl;
 
 import cn.esctasy.qqchat.core.chain.Handle;
-import cn.esctasy.qqchat.core.chain.impl.request.FriendHandle;
 import cn.esctasy.qqchat.core.bean.escalation.request.RequestEs;
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 请求上报事件

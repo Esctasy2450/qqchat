@@ -1,11 +1,8 @@
 package cn.esctasy.qqchat.core.chain.impl;
 
 import cn.esctasy.qqchat.core.chain.Handle;
-import cn.esctasy.qqchat.core.chain.impl.message.GroupHandle;
-import cn.esctasy.qqchat.core.chain.impl.message.PrivateHandle;
 import cn.esctasy.qqchat.core.bean.escalation.message.MessageEs;
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**

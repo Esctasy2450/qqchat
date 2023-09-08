@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * 发送消息实体类
  */
+@Slf4j
 @Getter
 @Setter
 @NoArgsConstructor
@@ -49,6 +51,8 @@ public class Reply {
     }
 
     public void send() {
-        SpringContextHolder.getBean(WebSocketClient.class).send(JSON.toJSONString(this));
+        String s = JSON.toJSONString(this);
+        log.info("发送的信息：{}", s);
+        SpringContextHolder.getBean(WebSocketClient.class).send(s);
     }
 }

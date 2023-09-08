@@ -10,11 +10,12 @@ import cn.esctasy.qqchat.core.chain.impl.event.LifeCycle;
 import cn.esctasy.qqchat.core.chain.impl.message.GroupHandle;
 import cn.esctasy.qqchat.core.chain.impl.message.PrivateHandle;
 import cn.esctasy.qqchat.core.chain.impl.notice.FriendAddHandle;
-import cn.esctasy.qqchat.core.chain.impl.notice.PokeHandle;
+import cn.esctasy.qqchat.core.chain.impl.notice.NotifyHandle;
+import cn.esctasy.qqchat.core.chain.impl.notice.notify.PokeHandle;
 import cn.esctasy.qqchat.core.chain.impl.request.FriendHandle;
 
 /**
- * 初始化调用链
+ * 初始化责任链
  */
 public class BaseChain implements ChainInterface {
     @Override
@@ -37,7 +38,9 @@ public class BaseChain implements ChainInterface {
     }
 
     private static Handle noticeChild() {
-        return new FriendAddHandle().setNext(new PokeHandle());
+        return new FriendAddHandle().setNext(
+                new NotifyHandle().setChild(new PokeHandle())
+        );
     }
 
     private static Handle request() {

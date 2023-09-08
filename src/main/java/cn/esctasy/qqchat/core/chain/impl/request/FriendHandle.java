@@ -4,8 +4,6 @@ import cn.esctasy.qqchat.core.bean.reply.Reply;
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.bean.escalation.request.FriendEs;
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;

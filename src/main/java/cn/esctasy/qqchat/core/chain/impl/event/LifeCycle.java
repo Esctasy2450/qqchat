@@ -1,6 +1,9 @@
 package cn.esctasy.qqchat.core.chain.impl.event;
 
+import cn.esctasy.qqchat.common.local.LocalInfo;
+import cn.esctasy.qqchat.core.bean.escalation.event.LifeCycleEs;
 import cn.esctasy.qqchat.core.chain.Handle;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -17,6 +20,8 @@ public class LifeCycle extends Handle {
             return;
         }
 
-        log.info("lifecycle");
+        LifeCycleEs lifeCycleEs = JSON.parseObject(metadata, LifeCycleEs.class);
+        LocalInfo.get().setSelf_id(lifeCycleEs.getSelf_id());
+        log.info("lifecycle, {}", metadata);
     }
 }

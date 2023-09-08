@@ -1,12 +1,8 @@
 package cn.esctasy.qqchat.core.chain.impl;
 
 import cn.esctasy.qqchat.core.chain.Handle;
-import cn.esctasy.qqchat.core.chain.impl.event.HeartHandle;
-import cn.esctasy.qqchat.core.chain.impl.event.LifeCycle;
 import cn.esctasy.qqchat.core.bean.escalation.event.EventEs;
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 /**
  * 事件责任链
