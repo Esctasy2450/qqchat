@@ -27,29 +27,28 @@ public abstract class Handle {
     /**
      * 执行
      *
-     * @param code     code
      * @param metadata 元数据字符串
      */
-    public abstract void handling(String code, String metadata);
+    public abstract void handling(String metadata);
 
     /**
      * 执行下一责任节点
      */
-    public void goNext(String code, String metadata) {
+    public void goNext(String metadata) {
         if (null == this.getNext()) {
-            log.info("责任链已经到但是最后仍然没有可执行的逻辑，node：{}， code：{}，metadata：{}", this.getClass().getName(), code, metadata);
+            log.info("责任链已经到但是最后仍然没有可执行的逻辑，node：{}，metadata：{}", this.getClass().getName(), metadata);
             return;
         }
 
-        this.getNext().handling(code, metadata);
+        this.getNext().handling(metadata);
     }
 
-    public void goChild(String code, String metadata) {
+    public void goChild(String metadata) {
         if (null == this.getChild()) {
-            log.info("当前责任链节点并没有子节点可以调用，node：{}， code：{}，metadata：{}", this.getClass().getName(), code, metadata);
+            log.info("当前责任链节点并没有子节点可以调用，node：{}，metadata：{}", this.getClass().getName(), metadata);
             return;
         }
 
-        this.getChild().handling(code, metadata);
+        this.getChild().handling(metadata);
     }
 }

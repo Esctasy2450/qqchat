@@ -27,11 +27,4 @@ public class Escalation {
      * 事件发生的unix时间戳
      */
     private int time;
-
-    /**
-     * 状态，调用的返回值，上报数据没有此字段，故根据此字段判断是 响应 还是 上报
-     * 响应：调用时返回值，此字段存在值
-     * 上报：qq接收到消息时自动上报，无此字段
-     */
-    private String echo;
 }

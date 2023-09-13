@@ -1,6 +1,7 @@
 package cn.esctasy.qqchat.core.chain.impl.notice.notify;
 
 import cn.esctasy.qqchat.common.local.LocalInfo;
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.bean.escalation.notice.notify.PokeEs;
 import cn.esctasy.qqchat.core.bean.reply.Reply;
 import cn.esctasy.qqchat.core.chain.Handle;
@@ -16,9 +17,9 @@ import java.util.Map;
 public class PokeHandle extends Handle {
 
     @Override
-    public void handling(String code, String metadata) {
-        if (!"poke".equals(code)) {
-            this.goNext(code, metadata);
+    public void handling(String metadata) {
+        if (!metadata.contains(ChainKeyWords.getPtNtStPoke())) {
+            this.goNext(metadata);
             return;
         }
 

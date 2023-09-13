@@ -1,5 +1,6 @@
 package cn.esctasy.qqchat.core.chain.impl.message;
 
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.chain.impl.message.chat.third.ThirdChat;
 import cn.esctasy.qqchat.common.utils.SpringContextHolder;
 import cn.esctasy.qqchat.core.bean.reply.Reply;
@@ -7,8 +8,6 @@ import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.bean.escalation.message.PrivateEs;
 import cn.esctasy.qqchat.core.chain.impl.message.chat.menu.BaseMenu;
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -21,15 +20,15 @@ import java.util.Map;
 public class PrivateHandle extends Handle {
 
     @Override
-    public void handling(String code, String metadata) {
-        if (!"private".equals(code)) {
-            this.goNext(code, metadata);
+    public void handling(String metadata) {
+        if (!metadata.contains(ChainKeyWords.getPtMtPrivate())) {
+            this.goNext(metadata);
             return;
         }
 
         PrivateEs privateEs = JSON.parseObject(metadata, PrivateEs.class);
 
-        String message = getMsg(privateEs.getRaw_message());
+        String message = getMsg(privateEs.getRawMessage());
 
         sendMsg(privateEs, message);
     }
@@ -39,7 +38,7 @@ public class PrivateHandle extends Handle {
      */
     private void sendMsg(PrivateEs privateEs, String message) {
         Map<String, Object> param = new HashMap<>();
-        param.put("user_id", privateEs.getUser_id());
+        param.put("user_id", privateEs.getUserId());
         param.put("message", message);
         param.put("auto_escape", true);
         Reply.build("send_private_msg", param).send();

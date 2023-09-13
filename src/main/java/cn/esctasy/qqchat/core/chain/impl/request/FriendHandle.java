@@ -1,5 +1,6 @@
 package cn.esctasy.qqchat.core.chain.impl.request;
 
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.bean.reply.Reply;
 import cn.esctasy.qqchat.core.chain.Handle;
 import cn.esctasy.qqchat.core.bean.escalation.request.FriendEs;
@@ -13,9 +14,9 @@ import java.util.Map;
 public class FriendHandle extends Handle {
 
     @Override
-    public void handling(String code, String metadata) {
-        if (!"friend".equals(code)) {
-            this.goNext(code, metadata);
+    public void handling(String metadata) {
+        if (!metadata.contains(ChainKeyWords.getPtRtFriend())) {
+            this.goNext(metadata);
             return;
         }
 

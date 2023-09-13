@@ -1,8 +1,7 @@
 package cn.esctasy.qqchat.core.chain.impl;
 
-import cn.esctasy.qqchat.core.bean.escalation.notice.NoticeEs;
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.chain.Handle;
-import com.alibaba.fastjson.JSON;
 
 /**
  * 请求上报事件
@@ -11,12 +10,12 @@ import com.alibaba.fastjson.JSON;
 public class NoticeHandle extends Handle {
 
     @Override
-    public void handling(String code, String metadata) {
-        if (!"notice".equals(code)) {
-            this.goNext(code, metadata);
+    public void handling(String metadata) {
+        if (!metadata.contains(ChainKeyWords.getPtNotice())) {
+            this.goNext(metadata);
             return;
         }
-        NoticeEs noticeEs = JSON.parseObject(metadata, NoticeEs.class);
-        this.goChild(noticeEs.getNotice_type(), metadata);
+
+        this.goChild(metadata);
     }
 }

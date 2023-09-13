@@ -1,5 +1,6 @@
 package cn.esctasy.qqchat.core.chain.impl.event;
 
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.chain.Handle;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,9 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 public class HeartHandle extends Handle {
 
     @Override
-    public void handling(String code, String metadata) {
-        if (!"heartbeat".equals(code)) {
-            this.goNext(code, metadata);
+    public void handling(String metadata) {
+        if (!metadata.contains(ChainKeyWords.getPtEtHeartBeat())) {
+            this.goNext(metadata);
             return;
         }
 

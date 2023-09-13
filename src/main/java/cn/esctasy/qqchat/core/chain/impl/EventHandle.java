@@ -1,21 +1,19 @@
 package cn.esctasy.qqchat.core.chain.impl;
 
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.chain.Handle;
-import cn.esctasy.qqchat.core.bean.escalation.event.EventEs;
-import com.alibaba.fastjson.JSON;
 
 /**
  * 事件责任链
  */
 public class EventHandle extends Handle {
     @Override
-    public void handling(String code, String metadata) {
-        if (!"meta_event".equals(code)) {
-            this.goNext(code, metadata);
+    public void handling(String metadata) {
+        if (!metadata.contains(ChainKeyWords.getPtEvent())) {
+            this.goNext(metadata);
             return;
         }
 
-        EventEs eventEs = JSON.parseObject(metadata, EventEs.class);
-        this.goChild(eventEs.getMeta_event_type(), metadata);
+        this.goChild(metadata);
     }
 }

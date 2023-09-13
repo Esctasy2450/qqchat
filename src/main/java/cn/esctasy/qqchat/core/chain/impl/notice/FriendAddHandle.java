@@ -1,8 +1,7 @@
 package cn.esctasy.qqchat.core.chain.impl.notice;
 
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.chain.Handle;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,9 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 public class FriendAddHandle extends Handle {
 
     @Override
-    public void handling(String code, String metadata) {
-        if (!"friend_add".equals(code)) {
-            this.goNext(code, metadata);
+    public void handling(String metadata) {
+        if (!metadata.contains(ChainKeyWords.getPtNtFriendAdd())) {
+            this.goNext(metadata);
             return;
         }
 

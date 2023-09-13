@@ -6,7 +6,7 @@ import cn.esctasy.qqchat.core.chain.impl.MessageHandle;
 import cn.esctasy.qqchat.core.chain.impl.NoticeHandle;
 import cn.esctasy.qqchat.core.chain.impl.RequestHandle;
 import cn.esctasy.qqchat.core.chain.impl.event.HeartHandle;
-import cn.esctasy.qqchat.core.chain.impl.event.LifeCycle;
+import cn.esctasy.qqchat.core.chain.impl.event.LifeCycleHandle;
 import cn.esctasy.qqchat.core.chain.impl.message.GroupHandle;
 import cn.esctasy.qqchat.core.chain.impl.message.PrivateHandle;
 import cn.esctasy.qqchat.core.chain.impl.notice.FriendAddHandle;
@@ -60,6 +60,6 @@ public class BaseChain implements ChainInterface {
     }
 
     private static Handle eventChild() {
-        return new HeartHandle().setNext(new LifeCycle());
+        return new HeartHandle().setNext(new LifeCycleHandle());
     }
 }

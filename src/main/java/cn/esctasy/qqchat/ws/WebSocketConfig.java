@@ -1,14 +1,9 @@
 package cn.esctasy.qqchat.ws;
 
 import cn.esctasy.qqchat.common.chain.BaseChain;
+import cn.esctasy.qqchat.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.chain.Handle;
-import cn.esctasy.qqchat.core.chain.impl.EventHandle;
-import cn.esctasy.qqchat.core.chain.impl.MessageHandle;
-import cn.esctasy.qqchat.core.chain.impl.NoticeHandle;
-import cn.esctasy.qqchat.core.chain.impl.RequestHandle;
-import cn.esctasy.qqchat.core.bean.escalation.Escalation;
 import cn.esctasy.qqchat.core.response.ResponseOperate;
-import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
@@ -16,7 +11,6 @@ import org.java_websocket.enums.ReadyState;
 import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.net.URI;
 
@@ -40,7 +34,7 @@ public class WebSocketConfig extends WebSocketClient {
     }
 
     @Override
-    public void onOpen(ServerHandshake handshakedata) {
+    public void onOpen(ServerHandshake handShake) {
         //连接成功后重置重试次数
         wsConfig.getRetry().resetting();
         log.info("ws 连接成功");
@@ -52,15 +46,14 @@ public class WebSocketConfig extends WebSocketClient {
             log.debug("ws 收到消息: {}", message.trim());
         }
 
-        Escalation escalation = JSON.parseObject(message, Escalation.class);
-        if (StringUtils.hasText(escalation.getEcho())) {
-            //响应数据直接处理
-            ResponseOperate.handleResponse(message.trim());
+        if (message.contains(ChainKeyWords.getPt())) {
+            //上报数据走责任链
+            handle.handling(message.trim());
             return;
         }
 
-        //上报数据走责任链
-        handle.handling(escalation.getPost_type(), message.trim());
+        //处理响应数据
+        ResponseOperate.handleResponse(message.trim());
     }
 
     @Override
