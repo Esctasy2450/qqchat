@@ -1,7 +1,8 @@
 server:
   port: 5701
 logging:
-  file-location: logs
+  file:
+    path: logs
 
 spring:
   main:
