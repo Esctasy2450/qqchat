@@ -1,6 +1,7 @@
 package cn.esctasy.qqchat.core.bean.escalation.event;
 
 import cn.esctasy.qqchat.core.bean.escalation.Escalation;
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,5 +17,6 @@ public class EventEs extends Escalation {
      * lifecycle 生命周期开始
      * heartbeat 心跳
      */
-    private String meta_event_type;
+    @JSONField(name = "meta_event_type")
+    private String metaEventType;
 }
