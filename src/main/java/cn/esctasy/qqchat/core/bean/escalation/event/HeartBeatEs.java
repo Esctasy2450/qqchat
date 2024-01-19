@@ -10,34 +10,34 @@ import lombok.NoArgsConstructor;
 @Data
 public class HeartBeatEs extends EventEs {
     /**
-     * status
+     * 应用程序状态
      */
     @JSONField(name = "status")
-    private StatusDTO status;
+    private HeartBeatStatus status;
     /**
-     * interval
+     * 距离上一次心跳包的时间(单位是毫秒)
      */
     @JSONField(name = "interval")
     private Integer interval;
 
     /**
-     * StatusDTO
+     * 心跳状态信息
      */
     @NoArgsConstructor
     @Data
-    public static class StatusDTO {
+    public static class HeartBeatStatus {
         /**
-         * appEnabled
+         * 程序是否可用
          */
         @JSONField(name = "app_enabled")
         private Boolean appEnabled;
         /**
-         * appGood
+         * 插件正常(可能为 null)
          */
         @JSONField(name = "app_good")
         private Boolean appGood;
         /**
-         * appInitialized
+         * 程序是否初始化完毕
          */
         @JSONField(name = "app_initialized")
         private Boolean appInitialized;
@@ -47,7 +47,7 @@ public class HeartBeatEs extends EventEs {
         @JSONField(name = "good")
         private Boolean good;
         /**
-         * online
+         * 是否在线
          */
         @JSONField(name = "online")
         private Boolean online;
@@ -57,7 +57,7 @@ public class HeartBeatEs extends EventEs {
         @JSONField(name = "plugins_good")
         private Object pluginsGood;
         /**
-         * stat
+         * 统计信息
          */
         @JSONField(name = "stat")
         private StatDTO stat;
@@ -69,42 +69,42 @@ public class HeartBeatEs extends EventEs {
         @Data
         public static class StatDTO {
             /**
-             * packetReceived
+             * 收包数
              */
             @JSONField(name = "packet_received")
             private Integer packetReceived;
             /**
-             * packetSent
+             * 发包数
              */
             @JSONField(name = "packet_sent")
             private Integer packetSent;
             /**
-             * packetLost
+             * 丢包数
              */
             @JSONField(name = "packet_lost")
             private Integer packetLost;
             /**
-             * messageReceived
+             * 消息接收数
              */
             @JSONField(name = "message_received")
             private Integer messageReceived;
             /**
-             * messageSent
+             * 消息发送数
              */
             @JSONField(name = "message_sent")
             private Integer messageSent;
             /**
-             * disconnectTimes
+             * 连接断开次数
              */
             @JSONField(name = "disconnect_times")
             private Integer disconnectTimes;
             /**
-             * lostTimes
+             * 连接丢失次数
              */
             @JSONField(name = "lost_times")
             private Integer lostTimes;
             /**
-             * lastMessageTime
+             * 最后一次消息时间
              */
             @JSONField(name = "last_message_time")
             private Integer lastMessageTime;
