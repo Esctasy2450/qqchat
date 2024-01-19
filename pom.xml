@@ -73,6 +73,7 @@
             <artifactId>google-bard</artifactId>
             <version>0.3.5</version>
         </dependency>
+        <!-- 嵌入式数据库quickio -->
         <dependency>
             <groupId>com.github.artbits</groupId>
             <artifactId>quickio</artifactId>
