@@ -21,7 +21,6 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 @RequestMapping("/private")
 public class PrivateMsg {
-
     private final GoogleBardClient client;
 
     @GetMapping("/send")
@@ -31,40 +30,8 @@ public class PrivateMsg {
 
     @GetMapping("/ask")
     public String ask(@RequestParam("q") String question) {
-//        AIClient client = new GoogleBardClient("agihvCUwVwpTj1bqSNqhgYWVuswAyCIPAygj4ETwv6KpkJwQsB_9DrLcYAqKDEu7qKZwvw.;APoG2W8Lj2icGWOdxpgGgKgzVuE7uXfLTiDtv4KOZYArrnlfQ_C0BkIHWdfAJP7J63gG-Bvxeg");
         Answer answer = client.ask(question);
         System.out.println(answer);
         return answer.getChosenAnswer();
-//        throw new RuntimeException("Can't access to Google Bard");
-
-    }
-
-    @GetMapping("/testDb")
-    public void gget() {
-        try (DB db = QuickIO.usingDB("example_db")) {
-            Collection<Book> collection = db.collection(Book.class);
-            Book book = Book.of(b -> {
-                b.name = UuidUtils.id();
-                b.author = "Bruce Eckel";
-                b.price = 129.8;
-            });
-
-            collection.save(book);
-            System.out.println(book.objectId());
-            List<Book> books = collection.findAll();
-            books.forEach(IOEntity::printJson);
-        }
-    }
-
-    public static class Book extends IOEntity {
-        public String name;
-        public String author;
-        public Double price;
-
-        public static Book of(Consumer<Book> consumer) {
-            Book book = new Book();
-            consumer.accept(book);
-            return book;
-        }
     }
 }
