@@ -13,7 +13,6 @@ spring:
 esctasy:
   qqchat:
     ws:
-      socket-path: ${SOCKET_PATH:ws://localhost:5700}
       retry:
         enable: true
         max: 5

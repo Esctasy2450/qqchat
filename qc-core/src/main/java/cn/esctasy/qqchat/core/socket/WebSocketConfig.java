@@ -2,6 +2,7 @@ package cn.esctasy.qqchat.core.socket;
 
 import cn.esctasy.qqchat.core.common.chain.BaseChain;
 import cn.esctasy.qqchat.core.common.utils.ChainKeyWords;
+import cn.esctasy.qqchat.core.config.WsConfig;
 import cn.esctasy.qqchat.core.event.chain.Handle;
 import cn.esctasy.qqchat.core.event.response.ResponseOperate;
 import lombok.extern.slf4j.Slf4j;
