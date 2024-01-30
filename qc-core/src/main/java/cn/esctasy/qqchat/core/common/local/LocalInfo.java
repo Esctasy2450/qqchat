@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
  * 机器人基本信息
  */
 @UtilityClass
-public final class LocalInfo {
+public class LocalInfo {
 
     @Getter
     @Setter
