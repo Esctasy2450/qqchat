@@ -28,32 +28,32 @@ public class WebSocketConfig extends WebSocketClient {
 
     public WebSocketConfig(WsConfig wsConfig) {
         super(URI.create(wsConfig.getSocketPath()), new Draft_6455());
-        //初始化配置
+        // 初始化配置
         this.wsConfig = wsConfig;
-        //连接socket
+        // 连接socket
         this.connect();
     }
 
     @Override
     public void onOpen(ServerHandshake handShake) {
-        //连接成功后重置重试次数
+        // 连接成功后重置重试次数
         wsConfig.getRetry().resetting();
-        log.info("ws 连接成功");
+        log.info("[socket] ws 连接成功");
     }
 
     @Override
     public void onMessage(String message) {
         if (log.isDebugEnabled()) {
-            log.debug("ws 收到消息: {}", message.trim());
+            log.debug("[event] ws 收到消息: {}", message.trim());
         }
 
         if (message.contains(ChainKeyWords.getPt())) {
-            //上报数据走责任链
+            // 上报数据走责任链
             handle.handling(message.trim());
             return;
         }
 
-        //处理响应数据
+        // 处理响应数据
         ResponseOperate.handleResponse(message.trim());
     }
 
@@ -72,7 +72,7 @@ public class WebSocketConfig extends WebSocketClient {
 
     @Override
     public void onError(Exception ex) {
-        log.info("ws 连接错误, {}", ex.getMessage());
+        log.warn("[socket] ws 连接错误, {}", ex.getMessage());
     }
 
     /**
@@ -81,19 +81,19 @@ public class WebSocketConfig extends WebSocketClient {
     private synchronized void isConnectOpen(WebSocketClient client) {
         wsConfig.getRetry().add();
         if (!wsConfig.getRetry().isEnable()) {
-            log.warn("未启用重试，连接已断开");
+            log.warn("[socket] 未启用重试，连接已断开");
             return;
         }
 
         if (wsConfig.getRetry().getMax() < wsConfig.getRetry().getRetry()) {
-            log.warn("重试次数过多，连接已断开");
+            log.warn("[socket] 重试次数过多，连接已断开");
             return;
         }
 
         try {
             Thread.sleep(wsConfig.getRetry().getInterval());
 
-            log.info("重连服务器，第{}次重试...", wsConfig.getRetry().getRetry());
+            log.info("[socket] 重连服务器，第{}次重试...", wsConfig.getRetry().getRetry());
             if (client.getReadyState().equals(ReadyState.NOT_YET_CONNECTED)) {
                 client.connectBlocking();
                 return;
@@ -103,7 +103,7 @@ public class WebSocketConfig extends WebSocketClient {
                 client.reconnectBlocking();
             }
         } catch (Exception e) {
-            log.error("reconnect error ", e);
+            log.error("[socket] reconnect error ", e);
         }
     }
 }
