@@ -60,14 +60,7 @@ public class WebSocketConfig extends WebSocketClient {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         WebSocketClient client = this;
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                isConnectOpen(client);
-            }
-        });
-
-        thread.start();
+        new Thread(() -> isConnectOpen(client)).start();
     }
 
     @Override
