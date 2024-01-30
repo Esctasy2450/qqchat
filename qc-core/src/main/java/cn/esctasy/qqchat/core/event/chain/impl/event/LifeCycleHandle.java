@@ -22,7 +22,7 @@ public class LifeCycleHandle extends Handle {
         }
 
         LifeCycleEs lifeCycleEs = JSON.parseObject(metadata, LifeCycleEs.class);
-        LocalInfo.get().setSelf_id(lifeCycleEs.getSelf_id());
+        LocalInfo.setSelf_id(lifeCycleEs.getSelf_id());
         log.info("lifecycle, {}", metadata);
     }
 }

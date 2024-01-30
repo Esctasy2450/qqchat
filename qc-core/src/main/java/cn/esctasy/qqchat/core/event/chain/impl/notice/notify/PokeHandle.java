@@ -30,7 +30,7 @@ public class PokeHandle extends Handle {
             return;
         }
 
-        if (pokeEs.getTarget_id() != LocalInfo.get().getSelf_id() || pokeEs.getTarget_id() == pokeEs.getSender_id()) {
+        if (pokeEs.getTarget_id() != LocalInfo.getSelf_id() || pokeEs.getTarget_id() == pokeEs.getSender_id()) {
             //排除目标不是本机的戳一戳，和本机戳本机的戳一戳
             return;
         }
