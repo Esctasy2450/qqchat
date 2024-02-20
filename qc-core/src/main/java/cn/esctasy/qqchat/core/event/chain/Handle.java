@@ -26,6 +26,18 @@ public abstract class Handle {
     private Handle child;
 
     /**
+     * 责任链入口
+     */
+    public void inlet(String metadata) {
+        if (!metadata.contains(keyword())) {
+            this.goNext(metadata);
+            return;
+        }
+
+        this.handling(metadata);
+    }
+
+    /**
      * 执行
      *
      * @param metadata 元数据字符串
@@ -41,7 +53,7 @@ public abstract class Handle {
             return;
         }
 
-        this.getNext().handling(metadata);
+        this.getNext().inlet(metadata);
     }
 
     public void goChild(String metadata) {
@@ -50,6 +62,11 @@ public abstract class Handle {
             return;
         }
 
-        this.getChild().handling(metadata);
+        this.getChild().inlet(metadata);
     }
+
+    /**
+     * 判断是否命中的关键词
+     */
+    public abstract String keyword();
 }

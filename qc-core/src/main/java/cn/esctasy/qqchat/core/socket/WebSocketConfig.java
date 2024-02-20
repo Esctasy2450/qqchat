@@ -49,7 +49,7 @@ public class WebSocketConfig extends WebSocketClient {
 
         if (message.contains(ChainKeyWords.getPt())) {
             // 上报数据走责任链
-            handle.handling(message.trim());
+            handle.inlet(message.trim());
             return;
         }
 
