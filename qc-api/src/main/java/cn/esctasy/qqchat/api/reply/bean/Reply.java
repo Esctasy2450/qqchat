@@ -1,16 +1,14 @@
-package cn.esctasy.qqchat.core.event.bean.reply;
+package cn.esctasy.qqchat.api.reply.bean;
 
-import cn.esctasy.qqchat.core.common.utils.SpringContextHolder;
-import cn.esctasy.qqchat.core.common.utils.UuidUtils;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.java_websocket.client.WebSocketClient;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 发送消息实体类
@@ -47,7 +45,7 @@ public class Reply {
 
     public static Reply build(String action, Map<String, Object> params) {
         //echo自动生成
-        return new Reply(action, params, UuidUtils.id());
+        return new Reply(action, params, UUID.randomUUID().toString().replace("-", ""));
     }
 
     public void send() {

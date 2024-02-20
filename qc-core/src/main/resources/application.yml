@@ -17,6 +17,7 @@ esctasy:
         enable: true
         max: 5
         interval: 3000
+      socket-path: ws://localhost:5700
     third-chat:
       model: xx
       qingyun:
