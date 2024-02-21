@@ -15,12 +15,12 @@ public class HeartHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtEtHeartBeat())) {
-            this.goNext(metadata);
-            return;
-        }
-
         HeartBeatEs heartBeatEs = JSON.parseObject(metadata, HeartBeatEs.class);
         log.info("心跳状态：{}", heartBeatEs);
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtEtHeartBeat();
     }
 }

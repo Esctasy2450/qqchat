@@ -21,16 +21,16 @@ public class PrivateHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtMtPrivate())) {
-            this.goNext(metadata);
-            return;
-        }
-
         PrivateEs privateEs = JSON.parseObject(metadata, PrivateEs.class);
 
         String message = getMsg(privateEs.getRawMessage());
 
         sendMsg(privateEs, message);
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtMtPrivate();
     }
 
     /**

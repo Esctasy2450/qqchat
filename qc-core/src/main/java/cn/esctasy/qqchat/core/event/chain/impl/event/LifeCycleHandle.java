@@ -16,13 +16,13 @@ public class LifeCycleHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtEtLifeCycle())) {
-            this.goNext(metadata);
-            return;
-        }
-
         LifeCycleEs lifeCycleEs = JSON.parseObject(metadata, LifeCycleEs.class);
         LocalInfo.setSelf_id(lifeCycleEs.getSelf_id());
         log.info("lifecycle, {}", metadata);
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtEtLifeCycle();
     }
 }

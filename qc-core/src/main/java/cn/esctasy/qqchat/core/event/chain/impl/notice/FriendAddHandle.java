@@ -13,11 +13,11 @@ public class FriendAddHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtNtFriendAdd())) {
-            this.goNext(metadata);
-            return;
-        }
-
         log.info("加好友成功");
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtNtFriendAdd();
     }
 }

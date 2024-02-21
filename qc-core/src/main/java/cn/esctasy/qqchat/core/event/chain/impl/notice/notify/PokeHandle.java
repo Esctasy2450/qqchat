@@ -18,11 +18,6 @@ public class PokeHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtNtStPoke())) {
-            this.goNext(metadata);
-            return;
-        }
-
         PokeEs pokeEs = JSON.parseObject(metadata, PokeEs.class);
 
         if (0 == pokeEs.getSender_id() || 0 == pokeEs.getTarget_id()) {
@@ -47,5 +42,10 @@ public class PokeHandle extends Handle {
             map.put("auto_escape", false);
             Reply.build("send_private_msg", map).send();
         }
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtNtStPoke();
     }
 }

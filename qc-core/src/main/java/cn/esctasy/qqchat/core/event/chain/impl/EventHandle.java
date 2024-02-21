@@ -9,11 +9,11 @@ import cn.esctasy.qqchat.core.event.chain.Handle;
 public class EventHandle extends Handle {
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtEvent())) {
-            this.goNext(metadata);
-            return;
-        }
-
         this.goChild(metadata);
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtEvent();
     }
 }

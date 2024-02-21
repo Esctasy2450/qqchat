@@ -17,11 +17,6 @@ public class GroupHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtMtGroup())) {
-            this.goNext(metadata);
-            return;
-        }
-
         GroupEs groupEs = JSON.parseObject(metadata, GroupEs.class);
 
         Map<String, Object> param = new HashMap<>();
@@ -29,5 +24,10 @@ public class GroupHandle extends Handle {
         param.put("message", groupEs.getRaw_message());
         param.put("auto_escape", true);
         Reply.build("send_group_msg", param, "test").send();
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtMtGroup();
     }
 }

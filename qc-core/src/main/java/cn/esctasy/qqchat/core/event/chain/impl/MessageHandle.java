@@ -12,11 +12,11 @@ public class MessageHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtMessage())) {
-            this.goNext(metadata);
-            return;
-        }
-
         this.goChild(metadata);
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtMessage();
     }
 }

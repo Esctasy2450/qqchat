@@ -10,11 +10,11 @@ public class RequestHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtRequest())) {
-            this.goNext(metadata);
-            return;
-        }
-
         this.goChild(metadata);
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtRequest();
     }
 }

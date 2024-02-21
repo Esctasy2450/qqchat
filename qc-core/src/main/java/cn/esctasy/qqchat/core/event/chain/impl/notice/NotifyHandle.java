@@ -6,11 +6,11 @@ import cn.esctasy.qqchat.core.event.chain.Handle;
 public class NotifyHandle extends Handle {
     @Override
     public void handling(String metadata) {
-        if (!metadata.contains(ChainKeyWords.getPtNtNotify())) {
-            this.goNext(metadata);
-            return;
-        }
-
         this.goChild(metadata);
+    }
+
+    @Override
+    public String keyword() {
+        return ChainKeyWords.getPtNtNotify();
     }
 }
