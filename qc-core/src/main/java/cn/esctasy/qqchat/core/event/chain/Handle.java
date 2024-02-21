@@ -27,6 +27,8 @@ public abstract class Handle {
 
     /**
      * 责任链入口
+     *
+     * @param metadata 元数据字符串
      */
     public void inlet(String metadata) {
         if (!metadata.contains(keyword())) {
@@ -56,6 +58,9 @@ public abstract class Handle {
         this.getNext().inlet(metadata);
     }
 
+    /**
+     * 进入责任链子链
+     */
     public void goChild(String metadata) {
         if (null == this.getChild()) {
             log.info("当前责任链节点并没有子节点可以调用，node：{}，metadata：{}", this.getClass().getName(), metadata);
