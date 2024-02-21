@@ -13,6 +13,13 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!-- qc-bot -->
+        <dependency>
+            <groupId>cn.esctasy</groupId>
+            <artifactId>qc-bot</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
         <!-- qc-api -->
         <dependency>
             <groupId>cn.esctasy</groupId>
