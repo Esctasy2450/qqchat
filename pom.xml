@@ -9,17 +9,13 @@
     <description>qqchat</description>
     <packaging>pom</packaging>
     <properties>
-        <!-- 项目版本号 -->
         <revision>0.1</revision>
-        <!-- java版本 -->
         <java.version>1.8</java.version>
-        <!-- 字符集 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- springboot -->
         <spring-boot.version>2.7.18</spring-boot.version>
-        <!-- fastjson -->
         <fastjson.version>1.2.83</fastjson.version>
+        <hutool.version>5.8.26</hutool.version>
     </properties>
 
     <modules>
@@ -69,7 +65,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.26</version>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 
