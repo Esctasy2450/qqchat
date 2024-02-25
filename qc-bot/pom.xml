@@ -15,10 +15,18 @@
     <description>qc-bot</description>
     
     <dependencies>
+        <!-- 公共接口 -->
         <dependency>
             <groupId>cn.esctasy</groupId>
             <artifactId>qc-api</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!--google bard 接口-->
+        <dependency>
+            <groupId>com.pkslow</groupId>
+            <artifactId>google-bard</artifactId>
+            <version>0.3.5</version>
         </dependency>
     </dependencies>
 </project>

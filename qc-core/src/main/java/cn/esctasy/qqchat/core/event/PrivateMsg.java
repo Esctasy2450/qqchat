@@ -1,6 +1,6 @@
 package cn.esctasy.qqchat.core.event;
 
-import cn.esctasy.qqchat.core.event.bean.reply.Reply;
+import cn.esctasy.qqchat.api.reply.bean.Reply;
 import com.pkslow.ai.GoogleBardClient;
 import com.pkslow.ai.domain.Answer;
 import lombok.RequiredArgsConstructor;

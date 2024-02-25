@@ -1,13 +1,9 @@
 package cn.esctasy.qqchat.core.event.chain.impl.message;
 
+import cn.esctasy.qqchat.api.event.handle.message.GroupEvent;
 import cn.esctasy.qqchat.core.common.utils.ChainKeyWords;
-import cn.esctasy.qqchat.core.event.bean.escalation.message.GroupEs;
-import cn.esctasy.qqchat.core.event.bean.reply.Reply;
 import cn.esctasy.qqchat.core.event.chain.Handle;
-import com.alibaba.fastjson.JSON;
-
-import java.util.HashMap;
-import java.util.Map;
+import cn.hutool.extra.spring.SpringUtil;
 
 /**
  * 消息
@@ -17,13 +13,7 @@ public class GroupHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        GroupEs groupEs = JSON.parseObject(metadata, GroupEs.class);
-
-        Map<String, Object> param = new HashMap<>();
-        param.put("group_id", groupEs.getGroup_id());
-        param.put("message", groupEs.getRaw_message());
-        param.put("auto_escape", true);
-        Reply.build("send_group_msg", param, "test").send();
+        SpringUtil.getBean(GroupEvent.class).eventHandle(metadata);
     }
 
     @Override

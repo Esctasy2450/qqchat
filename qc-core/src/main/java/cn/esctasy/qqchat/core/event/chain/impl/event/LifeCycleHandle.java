@@ -1,8 +1,8 @@
 package cn.esctasy.qqchat.core.event.chain.impl.event;
 
-import cn.esctasy.qqchat.core.common.local.LocalInfo;
+import cn.esctasy.qqchat.api.event.bean.event.LifeCycleEs;
+import cn.esctasy.qqchat.api.local.LocalInfo;
 import cn.esctasy.qqchat.core.common.utils.ChainKeyWords;
-import cn.esctasy.qqchat.core.event.bean.escalation.event.LifeCycleEs;
 import cn.esctasy.qqchat.core.event.chain.Handle;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;

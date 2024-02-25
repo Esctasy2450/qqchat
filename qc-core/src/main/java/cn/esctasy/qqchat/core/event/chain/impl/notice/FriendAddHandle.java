@@ -1,7 +1,9 @@
 package cn.esctasy.qqchat.core.event.chain.impl.notice;
 
+import cn.esctasy.qqchat.api.event.handle.notice.FriendAddEvent;
 import cn.esctasy.qqchat.core.common.utils.ChainKeyWords;
 import cn.esctasy.qqchat.core.event.chain.Handle;
+import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,7 +15,7 @@ public class FriendAddHandle extends Handle {
 
     @Override
     public void handling(String metadata) {
-        log.info("加好友成功");
+        SpringUtil.getBean(FriendAddEvent.class).eventHandle(metadata);
     }
 
     @Override
