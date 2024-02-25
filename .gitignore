@@ -31,6 +31,7 @@ build/
 ### VS Code ###
 .vscode/
 
+ms
 logs
 data
 application-dev.yml
