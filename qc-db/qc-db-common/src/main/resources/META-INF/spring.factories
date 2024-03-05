@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.esctasy.qqchat.db.common.config.DBAutoConfiguration

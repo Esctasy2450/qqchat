@@ -4,27 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.esctasy</groupId>
-        <artifactId>qqchat</artifactId>
+        <artifactId>qc-db</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>qc-db</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>qc-db-common</artifactId>
+    <packaging>jar</packaging>
 
-    <name>qc-db</name>
-    <description>qc-db</description>
-    
-    <modules>
-        <module>qc-db-quickio</module>
-        <module>qc-db-mysql</module>
-        <module>qc-db-common</module>
-    </modules>
+    <name>qc-db-common</name>
+    <description>qc-db-common</description>
     
     <dependencies>
         <dependency>
-            <groupId>cn.esctasy</groupId>
-            <artifactId>qc-api</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
     </dependencies>
 </project>
