@@ -22,13 +22,8 @@
         <module>qc-core</module>
         <module>qc-api</module>
         <module>qc-bot</module>
+        <module>qc-db</module>
     </modules>
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://www.jitpack.io</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <!--  -->
