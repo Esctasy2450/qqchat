@@ -1,7 +1,9 @@
 package cn.esctasy.qqchat.db.common.aop;
 
 import cn.esctasy.qqchat.api.db.QQChatDSHandleForAop;
+import cn.esctasy.qqchat.db.common.constant.Api2DBMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,6 +27,7 @@ public class QQChatDSAop {
     }
 
     @Before("point()")
+    @SneakyThrows
     public void before(JoinPoint joinpoint) {
         System.out.println("----------Before开始-----------");
 
@@ -39,9 +42,18 @@ public class QQChatDSAop {
         System.out.println(Arrays.toString(joinpoint.getTarget().getClass().getInterfaces()));
 
         Class<?>[] interfaces = findInterfacesWithMethod(joinpoint.getTarget().getClass(), joinpoint.getSignature().getName());
+        Class<?> c = null;
         for (Class<?> intf : interfaces) {
             System.out.println(intf.getName());
+            Class<?> cp = Api2DBMapper.getClazzByApi(intf);
+            if (cp != null) {
+                c = cp;
+            }
         }
+        if (c != null) {
+            System.out.println(c.getName());
+        }
+        
         System.out.println("----------Before结束-----------");
 
         qqChatDSHandleForAop.before();
@@ -65,6 +77,7 @@ public class QQChatDSAop {
     }
 
     public static Class<?>[] filterInterfacesWithMethod(Class<?>[] interfaces, String methodName) {
+        
         int count = 0;
         for (Class<?> intf : interfaces) {
             try {
