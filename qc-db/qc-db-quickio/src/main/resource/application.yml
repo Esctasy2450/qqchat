@@ -1,0 +1,6 @@
+esctasy:
+  qqchat:
+    quick-io:
+      name: qqchat
+      path: data/qio
+      cache-size: 16L * 1024 * 1024
