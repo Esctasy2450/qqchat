@@ -1,4 +1,0 @@
-/**
- * todo
- */
-package cn.esctasy.qqchat.db.quickio;
