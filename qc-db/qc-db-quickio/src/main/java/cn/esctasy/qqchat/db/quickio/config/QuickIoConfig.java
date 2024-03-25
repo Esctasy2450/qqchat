@@ -2,7 +2,9 @@ package cn.esctasy.qqchat.db.quickio.config;
 
 import com.github.artbits.quickio.core.Config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 @ConfigurationProperties(prefix = "esctasy.qqchat.quick-io")
 public class QuickIoConfig {
     private String name = "qqchat";

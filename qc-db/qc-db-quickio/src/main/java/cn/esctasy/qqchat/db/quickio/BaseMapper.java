@@ -4,7 +4,6 @@ import cn.esctasy.qqchat.db.quickio.config.QuickIoConfig;
 import cn.hutool.extra.spring.SpringUtil;
 import com.github.artbits.quickio.api.Collection;
 import com.github.artbits.quickio.api.DB;
-import com.github.artbits.quickio.core.Config;
 import com.github.artbits.quickio.core.IOEntity;
 import com.github.artbits.quickio.core.QuickIO;
 import org.springframework.util.CollectionUtils;
