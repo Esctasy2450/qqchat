@@ -20,7 +20,7 @@ public class PrivateEventImpl implements PrivateEvent {
     public void eventHandle(String metadata) {
         PrivateEs privateEs = JSON.parseObject(metadata, PrivateEs.class);
 
-        String message = getMsg(privateEs.getRawMessage());
+        String message = getMsg(privateEs);
 
         sendMsg(privateEs, message);
     }
@@ -36,9 +36,15 @@ public class PrivateEventImpl implements PrivateEvent {
         Reply.build("send_private_msg", param).send();
     }
 
-    private String getMsg(String message) {
+    private String getMsg(PrivateEs privateEs) {
+        if (!StringUtils.hasText(privateEs.getRawMessage())) {
+            return "";
+        }
+
+        String message = privateEs.getRawMessage();
+
         if (message.startsWith("#")) {
-            return parseShall(message.substring(1));
+            return parseShall(privateEs);
         } else if (message.startsWith("[CQ:")) {
             return "cq消息";
         } else {
@@ -46,8 +52,8 @@ public class PrivateEventImpl implements PrivateEvent {
         }
     }
 
-    private String parseShall(String msg) {
-        String[] strs = StringUtils.tokenizeToStringArray(msg, "\t");
-        return BaseMenu.parse(strs[0]);
+    private String parseShall(PrivateEs privateEs) {
+        //String[] strs = StringUtils.tokenizeToStringArray(privateEs, "\t");
+        return BaseMenu.parse(privateEs);
     }
 }
