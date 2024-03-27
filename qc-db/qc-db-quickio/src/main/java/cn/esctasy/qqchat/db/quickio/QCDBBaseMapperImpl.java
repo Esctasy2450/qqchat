@@ -18,7 +18,7 @@ public class QCDBBaseMapperImpl implements QCDBBaseMapper {
 
     @Override
     public void update() {
-
+        //new BaseMapper().save();
     }
 
     @Override
