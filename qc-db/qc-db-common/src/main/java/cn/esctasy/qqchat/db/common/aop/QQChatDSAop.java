@@ -81,9 +81,11 @@ public class QQChatDSAop {
         int count = 0;
         for (Class<?> intf : interfaces) {
             try {
+                Method[] methods = intf.getMethods();
                 intf.getMethod(methodName);
                 count++;
             } catch (NoSuchMethodException ignore) {
+                ignore.printStackTrace();
             }
         }
         Class<?>[] result = new Class<?>[count];
@@ -93,7 +95,7 @@ public class QQChatDSAop {
                 intf.getMethod(methodName);
                 result[count++] = intf;
             } catch (NoSuchMethodException ignore) {
-                // Ignore interfaces that don't contain the method
+                ignore.printStackTrace();
             }
         }
         return result;

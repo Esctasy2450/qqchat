@@ -2,6 +2,7 @@ package cn.esctasy.qqchat.bot.event.message.chat.menu;
 
 import cn.esctasy.qqchat.api.event.bean.message.PrivateEs;
 import cn.esctasy.qqchat.bot.event.message.chat.menu.impl.BaseMenuImpl;
+import cn.esctasy.qqchat.bot.event.message.chat.menu.impl.RegisterImpl;
 import cn.esctasy.qqchat.bot.event.message.chat.menu.impl.SignInMenuImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BaseMenu {
     BASE("菜单", new BaseMenuImpl()),
+    REGISTER("注册", new RegisterImpl()),
     SIGN_IN("签到系统", new SignInMenuImpl());
 
     private final String label;
